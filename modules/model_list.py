@@ -1,0 +1,15 @@
+from ollama import list as ollama_list
+
+def model_list():
+    models_list, models_list_edited= [], []
+    response = ollama_list()
+    for item in response.models:
+        name = str(item.model)
+        name_split = name.split(':', 1)[0]
+        models_list += [name]
+        models_list_edited += [name_split.lower()]
+    return set(models_list), set(models_list_edited)
+
+if __name__ == "__main__":
+    models, models_edited = model_list()
+    print(set(models))
