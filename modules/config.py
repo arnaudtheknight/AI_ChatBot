@@ -1,5 +1,5 @@
 # Absolute imports, which work for chat programs
-from modules.classes import log
+from modules.classes import log, log2
 from modules.model_list import model_list
 
 def yesno(string, default_yes=True):
@@ -11,16 +11,17 @@ def yesno(string, default_yes=True):
             return False
         elif answer == '':
             return True if default_yes else False
-        answer = input(log.Config_Incorrect)
+        answer = input(log2.Config_Prompt_Fail)
 
 # Pre-chat parameter settings:
 def config(valid, valid_edited):
-    print(f"\nThe following models can be used for this chat: \n{valid}\n")
-    name = str(input("Provide the name of the model you would like to use: "))
+    print(log2.Config_Model_Show)
+    print(f"--> {valid}")
+    name = str(input(log2.Config_Model_Prompt))
     while name.lower() not in (valid_edited or valid):
-        name = str(input(log.Config_Incorrect))
-    stream = yesno("Would you like the output streamed to the terminal? [Y/n] ", default_yes=True)
-    think = yesno("Would you like to enable thinking mode? [y/N] ", default_yes=False)
+        name = str(input(log2.Config_Prompt_Fail))
+    stream = yesno(log2.Config_Mode_Stream, default_yes=True)
+    think = yesno(log2.Config_Mode_Think, default_yes=False)
     return name, think, stream
 
 # Name/Main doesn't work, because the absolute imports above raise errors for this file
