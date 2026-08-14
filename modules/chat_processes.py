@@ -41,7 +41,7 @@ def generate_stream(output, out_think="", out_ans=""):
             print(chunk.message.thinking, end='', flush=True)
             out_think += chunk.message.thinking
         elif chunk.message.content:
-            print("Thinking complete!") if not out_think else None
+            print("Thinking complete!") if out_think else None
             print(chunk.message.content, end='', flush=True)
             out_ans += chunk.message.content
     return out_think, out_ans
