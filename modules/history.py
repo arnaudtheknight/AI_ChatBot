@@ -1,11 +1,13 @@
 # Importing modules:
+from sys import exit
 from os import getcwd as get_path
 from json import load, dump
 from datetime import datetime
 ## Self-written:
-from modules.classes import log
+from modules.classes import log, log2
 
 # Import previous chat history from JSON file:
+"""
 def history_import():
     root = get_path()
     path = input(f"\nInput path to history file here: \n{root}/")
@@ -21,17 +23,21 @@ def history_import():
     else:
         print(log.Hist_Import_Empty)
         return []
-
-def history_import2():
+"""
+        
+def history_import():
     root = get_path()
     while True:
-        path = input(f"\nInput path to history file here: \n{root}/") # [./]history/blah.json
+        print(log2.Import_Prompt)
+        path = input(f"{log2.UNDER}{root}/{log2.RESET}") # [./]history/blah.json
         if path.lower() in {'', 'n'}:
-            print(log.Hist_Import_Empty)
+            print(log2.Import_Skipped)
             return []
+        else:
+            path = f"/{path}"
         candidates = [
-            f"{root}/{path}", # [root/]history/blah.json
-            f"{root}/history/{path}", # [root/history/]blah.json
+            f"{root}{path}", # [root/]history/blah.json
+            f"{root}/history{path}", # [root/history/]blah.json
             path # ~/.../history/blah.json
         ]
         for spot in candidates:
@@ -41,10 +47,11 @@ def history_import2():
                 print(log.Hist_Import_Success)
                 return content
             except FileNotFoundError:
-                print(f"Tried opening '{spot}' and failed.")
-        print("Yeah, no, you oopsied, try again.")
+                print(f"Tried opening '{log2.UNDER}{spot}{log2.RESET}' and failed.")
+        print(log2.Import_Failed)
 
 # Export this chat as JSON file:
+"""
 def history_export(history):
     storage = f"{get_path()}/history"
     stop = datetime.now()
@@ -53,7 +60,26 @@ def history_export(history):
     try:
         with open(path, 'a') as file:
             dump(history, file, ensure_ascii=False, indent=2)
-        print(f"{log.CYAN}[INFO] Exited on {stop_date} at {stop_hour}:{stop_min}:{stop_sec}.{log.END}")
-        print(f"{log.CYAN}[INFO] Exported to {log.UNDER}{path}.{log.END}")
+        print(f"{log.CYAN}[INFO] Exited on {stop_date} at {stop_hour}:{stop_min}:{stop_sec}.{log.RESET}")
+        print(f"{log.CYAN}[INFO] Exported to {log.UNDER}{path}.{log.RESET}")
     except Exception:
         exit(log.Hist_Export_Fail)
+"""
+        
+def history_export(history):
+    root = get_path()
+    now = datetime.now()
+    stop_d, stop_h, stop_m, stop_s = now.date(), f"{now.hour:02d}", f"{now.minute:02d}", f"{now.second:02d}"
+    stop = f"{stop_d}-{stop_h}{stop_m}{stop_s}"
+    name1, name2, name_true = f"{root}/history/hist-{stop}.json", f"{root}/hist-{stop}.json", None
+    for name in (name1, name2):
+        try:
+            with open(name, 'a') as file:
+                dump(history, file, ensure_ascii=False, indent=2)
+            name_true = name
+            break
+        except Exception:
+            print(log2.Export_Failure)
+            print(log2.Export_Alternative)
+    print(f"\n{log2.INFO} Exited on {stop_d} at {stop_h}:{stop_m}:{stop_s}. {log2.RESET}")
+    exit(f"{log2.INFO} Exported to {log2.UNDER}{name_true}. {log2.RESET}")
