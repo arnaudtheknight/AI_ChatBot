@@ -1,4 +1,4 @@
-class col2:
+class col:
     RESET = '\033[0m' # all attributes off
     BOLD = '\033[1m'
     ITALIC = '\033[3m'
@@ -24,19 +24,33 @@ class col2:
     NEG_CYAN = '\033[46m' # Cyan bg
     NEG_GREY = '\033[100m' # Grey+ bg
 
-class log_mini(col2):
-    DEBUG = f"{col2.NEG_GREY}[DEBUG]{col2.RESET} {col2.GREY}"
-    INFO = f"{col2.NEG_CYAN}[INFO]{col2.RESET} {col2.CYAN}"
-    WARNING = f"{col2.NEG_YELLOW}[WARN]{col2.RESET} {col2.YELLOW}"
-    ERROR = f"{col2.NEG_RED}[ERROR]{col2.RESET} {col2.RED}"
-    FATAL = f"{col2.NEG_PURPLE}[FATAL]{col2.RESET} {col2.PURPLE}"
-    EXIT = f"{col2.NEG_GREEN}[EXIT]{col2.RESET} {col2.GREEN}"
+class tag(col):
+    RESET = col.RESET
+    ORDER = col.NEG_WHITE
+    DEBUG = f"{col.NEG_GREY}[DEBUG]{col.RESET}{col.GREY}"
+    INFO = f"{col.NEG_CYAN}[INFO]{col.RESET}{col.CYAN}"
+    WARNING = f"{col.NEG_YELLOW}[WARN]{col.RESET}{col.YELLOW}"
+    ERROR = f"{col.NEG_RED}[ERROR]{col.RESET}{col.RED}"
+    FATAL = f"{col.NEG_PURPLE}[FATAL]{col.RESET}{col.PURPLE}"
+    EXIT = f"{col.NEG_GREEN}[EXIT]{col.RESET}{col.GREEN}"
 
-# class log2(log_mini):
+class log2(tag):
+    Import_Prompt = f"\n{tag.ORDER}Provide path to history file:{tag.RESET} "
+    Import_Failed = f"{tag.ERROR} Error retrieving provided history file. Try again.{tag.RESET} "
+    Import_Skipped = f"{tag.WARNING} History file not provided. Continuing regardless...{tag.RESET} "
+    Import_Success = f"{tag.INFO} History imported successfully.{tag.RESET} "
+    Export_Failure = f"{tag.ERROR} Unable to export message history to the appropriate JSON file.{tag.RESET} "
+    Export_Alternative = f"{tag.WARNING} Saving to alternative history export location...{tag.RESET} "
+    Config_Prompt_Fail = f"{tag.WARNING} Incorrect input.{tag.RESET} {tag.UNDER}Try again.{tag.RESET} "
+    Config_Model_Show = f"\n{tag.UNDER}The following models can be used for this chat:{tag.RESET} "
+    Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
+    Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
+    Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
 
 
+"""
 class col:
-    END = '\033[0m'
+    RESET = '\033[0m'
     BOLD = '\033[1m'
     ITALIC = '\033[3m'
     UNDER = '\033[4m'
@@ -51,19 +65,20 @@ class col:
     PURPLE = '\033[1;35m'
     CYAN = '\033[1;36m'
     WHITE = '\033[1;37m'
-
+"""
+    
 class log(col):
-    Config_Incorrect= f"{col.YELLOW}Incorrect input. Try again: {col.END}"
-    Error_General = f"{col.RED}[ERROR] Unknown error has occured. {col.END}\nRefer to debugging for more information.\n{col.BLINK}NON-TRIVIAL EXIT.{col.END}"
-    Error_KeyboardInterrupt = f"{col.RED}KeyboardInterrupt detected outside chat. Stopping now.{col.END}"
-    Hist_Import_Missing = f"{col.RED}{col.NEG}[ERROR] Failed to import history: File not found. \nPossible missing file or incorrect path?"
-    Hist_Import_Success = f"{col.CYAN}[INFO] Import successful.{col.END}"
-    Hist_Import_Empty = f"{col.YELLOW}[WARN] History not provided, starting afresh... {col.END}"
-    Hist_Export_Fail = f"{col.RED}[ERROR] Failed to export history to JSON.{col.END}"
-    Chat_Prompting = f"\nAwaiting the next (short) prompt: \n{col.NEG}${col.END} "
-    Chat_Processing = f"{col.UNDER}Crunching the numbers. {col.BLINK}Please wait...{col.END}"
-    Exit_KeyboardInterrupt = f"\n{col.RED}[WARN] KeyboardInterrupt detected. Closing chatbot now.{col.END}"
-    Exit_Uncaught = f"{col.RED}[ERROR] Critical uncaught failure. Quitting immediately. {col.END}"
-    Exit_Trivial = f"{col.BLINK}TRIVIAL EXIT! :) {col.END}"
-    Exit_NonTrivial = f"{col.RED}{col.BLINK}NON-TRIVIAL EXIT! :({col.END}"
+    Config_Incorrect= f"{col.YELLOW}Incorrect input. Try again: {col.RESET}"
+    Error_General = f"{col.RED}[ERROR] Unknown error has occured. {col.RESET}\nRefer to debugging for more information.\n{col.BLINK}NON-TRIVIAL EXIT.{col.RESET}"
+    Error_KeyboardInterrupt = f"{col.RED}KeyboardInterrupt detected outside chat. Stopping now.{col.RESET}"
+    Hist_Import_Missing = f"{col.NEG_RED}[ERROR] Failed to import history: File not found. \nPossible missing file or incorrect path?"
+    Hist_Import_Success = f"{col.CYAN}[INFO] Import successful.{col.RESET}"
+    Hist_Import_Empty = f"{col.YELLOW}[WARN] History not provided, starting afresh... {col.RESET}"
+    Hist_Export_Fail = f"{col.RED}[ERROR] Failed to export history to JSON.{col.RESET}"
+    Chat_Prompting = f"\nAwaiting the next (short) prompt: \n{col.NEG_WHITE}${col.RESET} "
+    Chat_Processing = f"{col.UNDER}Crunching the numbers. {col.BLINK}Please wait...{col.RESET}"
+    Exit_KeyboardInterrupt = f"\n{col.RED}[WARN] KeyboardInterrupt detected. Closing chatbot now.{col.RESET}"
+    Exit_Uncaught = f"{col.RED}[ERROR] Critical uncaught failure. Quitting immediately. {col.RESET}"
+    Exit_Trivial = f"{col.BLINK}TRIVIAL EXIT! :) {col.RESET}"
+    Exit_NonTrivial = f"{col.RED}{col.BLINK}NON-TRIVIAL EXIT! :({col.RESET}"
     # "\nGoodbye! *wave*"
