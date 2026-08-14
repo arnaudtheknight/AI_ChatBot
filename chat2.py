@@ -2,7 +2,7 @@
 from sys import exit
 from ollama import ResponseError
 # Self-written:
-from modules.classes import log
+from modules.classes import log, log2
 from modules.history import *
 from modules.model_list import model_list
 from modules.config import config
@@ -36,7 +36,7 @@ def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
                 history += [{'role': 'assistant', 'thinking':output_thinking,'content':output_answer}]
             else:
                 history += [{'role': 'assistant', 'content':output_answer}]
-        except KeyboardInterrupt or EOFError:
+        except KeyboardInterrupt:
             print("Keyboard Interrupt ~DURING CHAT~ here!")
             if output_thinking:
                 history += [{'role': 'assistant', 'thinking':output_thinking,'content':output_answer}]
@@ -48,7 +48,7 @@ def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
 if __name__ == '__main__':
     try:
         prompt_last = ""
-        history = history_import2()
+        history = history_import()
         while True:
             try:
                 valid_names, valid_choices = model_list()
@@ -72,5 +72,5 @@ if __name__ == '__main__':
                 print("Non-trivial exit!")
             finally:
                 history_export(history)
-    except KeyboardInterrupt or EOFError:
+    except KeyboardInterrupt:
         exit("\nKeyboard Interrupt ~OUTSIDE CHAT~ here!")
