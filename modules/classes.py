@@ -46,9 +46,30 @@ class log2(tag):
     Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
     Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
     Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
-
+    
+class log(col):
+    Config_Incorrect= f"{col.YELLOW}Incorrect input. Try again: {col.RESET}"
+    Error_General = f"{col.RED}[ERROR] Unknown error has occured. {col.RESET}\nRefer to debugging for more information.\n{col.BLINK}NON-TRIVIAL EXIT.{col.RESET}"
+    Error_KeyboardInterrupt = f"{col.RED}KeyboardInterrupt detected outside chat. Stopping now.{col.RESET}"
+    Hist_Import_Missing = f"{col.NEG_RED}[ERROR] Failed to import history: File not found. \nPossible missing file or incorrect path?"
+    Hist_Import_Success = f"{col.CYAN}[INFO] Import successful.{col.RESET}"
+    Hist_Import_Empty = f"{col.YELLOW}[WARN] History not provided, starting afresh... {col.RESET}"
+    Hist_Export_Fail = f"{col.RED}[ERROR] Failed to export history to JSON.{col.RESET}"
+    Chat_Prompting = f"\nAwaiting the next (short) prompt: \n{col.NEG_WHITE}${col.RESET} "
+    Chat_Processing = f"{col.UNDER}Crunching the numbers. {col.BLINK}Please wait...{col.RESET}"
+    Exit_KeyboardInterrupt = f"\n{col.RED}[WARN] KeyboardInterrupt detected. Closing chatbot now.{col.RESET}"
+    Exit_Uncaught = f"{col.RED}[ERROR] Critical uncaught failure. Quitting immediately. {col.RESET}"
+    Exit_Trivial = f"{col.BLINK}TRIVIAL EXIT! :) {col.RESET}"
+    Exit_NonTrivial = f"{col.RED}{col.BLINK}NON-TRIVIAL EXIT! :({col.RESET}"
+    # "\nGoodbye! *wave*"
 
 """
+Points of improvement:
+- finishing the damn log stack
+- an actually decent error handling system, where i raise my own errors
+"""
+
+""" RETIRED:
 class col:
     RESET = '\033[0m'
     BOLD = '\033[1m'
@@ -66,19 +87,3 @@ class col:
     CYAN = '\033[1;36m'
     WHITE = '\033[1;37m'
 """
-    
-class log(col):
-    Config_Incorrect= f"{col.YELLOW}Incorrect input. Try again: {col.RESET}"
-    Error_General = f"{col.RED}[ERROR] Unknown error has occured. {col.RESET}\nRefer to debugging for more information.\n{col.BLINK}NON-TRIVIAL EXIT.{col.RESET}"
-    Error_KeyboardInterrupt = f"{col.RED}KeyboardInterrupt detected outside chat. Stopping now.{col.RESET}"
-    Hist_Import_Missing = f"{col.NEG_RED}[ERROR] Failed to import history: File not found. \nPossible missing file or incorrect path?"
-    Hist_Import_Success = f"{col.CYAN}[INFO] Import successful.{col.RESET}"
-    Hist_Import_Empty = f"{col.YELLOW}[WARN] History not provided, starting afresh... {col.RESET}"
-    Hist_Export_Fail = f"{col.RED}[ERROR] Failed to export history to JSON.{col.RESET}"
-    Chat_Prompting = f"\nAwaiting the next (short) prompt: \n{col.NEG_WHITE}${col.RESET} "
-    Chat_Processing = f"{col.UNDER}Crunching the numbers. {col.BLINK}Please wait...{col.RESET}"
-    Exit_KeyboardInterrupt = f"\n{col.RED}[WARN] KeyboardInterrupt detected. Closing chatbot now.{col.RESET}"
-    Exit_Uncaught = f"{col.RED}[ERROR] Critical uncaught failure. Quitting immediately. {col.RESET}"
-    Exit_Trivial = f"{col.BLINK}TRIVIAL EXIT! :) {col.RESET}"
-    Exit_NonTrivial = f"{col.RED}{col.BLINK}NON-TRIVIAL EXIT! :({col.RESET}"
-    # "\nGoodbye! *wave*"
