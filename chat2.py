@@ -18,7 +18,7 @@ def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
                 print(f"Trying again with previous prompt...\n{prompt}")
             else:
                 prompt = str(input(log.Chat_Prompting))
-                print("Crunching the numbers. Please wait...")
+                print(f"{log2.BLINK}Crunching the numbers. Please wait...{log2.RESET}")
             
             history += [{'role': 'user', 'content':prompt}]
 
@@ -49,6 +49,11 @@ if __name__ == '__main__':
     try:
         prompt_last = ""
         history = history_import()
+        if history:
+            previous = history[-1]
+            if previous['role'] == 'user':
+                prompt_last = previous['content'] 
+                history.pop()
         while True:
             try:
                 valid_names, valid_choices = model_list()
@@ -74,3 +79,10 @@ if __name__ == '__main__':
                 history_export(history)
     except KeyboardInterrupt:
         exit("\nKeyboard Interrupt ~OUTSIDE CHAT~ here!")
+
+"""
+Points of improvement:
+- full migration to log2 colours and errors
+- bug-busting/perfecting the history import for last prompt
+- multiline prompt inputs
+"""
