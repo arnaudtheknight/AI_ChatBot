@@ -1,6 +1,6 @@
 # Absolute imports, which work for chat programs
 from modules.classes import log, log2
-from modules.model_list import model_list
+from modules.model_list import model_lister
 
 def yesno(string, default_yes=True):
     answer = input(string).lower()
@@ -14,7 +14,7 @@ def yesno(string, default_yes=True):
         answer = input(log2.Config_Prompt_Fail)
 
 # Pre-chat parameter settings:
-def config(valid, valid_edited):
+def configuration(valid, valid_edited):
     print(log2.Config_Model_Show)
     print(f"--> {valid}")
     name = str(input(log2.Config_Model_Prompt))

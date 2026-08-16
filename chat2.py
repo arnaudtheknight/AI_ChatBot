@@ -2,11 +2,7 @@
 from sys import exit
 from ollama import ResponseError
 # Self-written:
-from modules.classes import log, log2
-from modules.history import *
-from modules.model_list import model_list
-from modules.config import config
-from modules.chat_processes import *
+from modules import *
 
 # Chatbot logic:
 def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
@@ -18,7 +14,7 @@ def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
                 print(f"Trying again with previous prompt...\n{prompt}")
             else:
                 prompt = str(input(log.Chat_Prompting))
-                print(f"{log2.BLINK}Crunching the numbers. Please wait...{log2.RESET}")
+                print(f"{log2.BLINK}Crunching the numbers. {log2.NEG_WHITE}Please wait...{log2.RESET}")
             
             history += [{'role': 'user', 'content':prompt}]
 
@@ -56,8 +52,8 @@ if __name__ == '__main__':
                 history.pop()
         while True:
             try:
-                valid_names, valid_choices = model_list()
-                name, think, stream = config(valid_names, valid_choices)
+                valid_names, valid_choices = model_lister()
+                name, think, stream = configuration(valid_names, valid_choices)
                 if prompt_last:
                     history = chatbot(name, history, think, stream, prompt_last)
                 else:
