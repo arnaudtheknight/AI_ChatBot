@@ -1,6 +1,6 @@
 from ollama import chat
 from ollama import RequestError, ResponseError
-from modules.classes import log
+from modules.classes import log, log2
 
 def interact(name, history=[], mode_think=False):
     output = chat(
@@ -36,12 +36,12 @@ def generate(output, out_think="", out_ans=""):
 
 def generate_stream(output, out_think="", out_ans=""):
     for chunk in output:
-        print("Done crunching!") if not out_think and not out_ans else None
+        print(f"{log2.NEG_BLUE}Done crunching!{log2.RESET}") if (not out_think and not out_ans) else None
         if chunk.message.thinking:
-            print(chunk.message.thinking, end='', flush=True)
+            print(f"{log2.BLUE}{chunk.message.thinking}{log2.RESET}", end='', flush=True)
             out_think += chunk.message.thinking
         elif chunk.message.content:
-            print("Thinking complete!") if out_think else None
+            print(f"{log2.NEG_GREEN}Thinking complete!{log2.RESET}") if (out_think and not out_ans) else None
             print(chunk.message.content, end='', flush=True)
             out_ans += chunk.message.content
     return out_think, out_ans
