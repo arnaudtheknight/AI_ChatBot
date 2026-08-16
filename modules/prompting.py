@@ -22,10 +22,17 @@ def prompting(previous=""):
         try:
             line = str(input())
         except EOFError:
-            print(f"END OF LINE.{log2.RESET}")
+            print(f"{log2.RESET}{log2.PURPLE}END OF LINE.{log2.RESET}")
             break
     prompt = '\n'.join(inputs)
     return prompt
 
 if __name__ == "__main__":
     print(prompting())
+
+"""
+Points of improvement:
+- add handling of previous prompt
+    - last role was user
+    - last role was assistant, but content is empty
+"""
