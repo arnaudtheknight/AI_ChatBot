@@ -81,5 +81,13 @@ def history_export(history):
         except Exception:
             print(log2.Export_Failure)
             print(log2.Export_Alternative)
-    print(f"\n{log2.INFO} Exited on {stop_d} at {stop_h}:{stop_m}:{stop_s}. {log2.RESET}")
-    exit(f"{log2.INFO} Exported to {log2.UNDER}{name_true}. {log2.RESET}")
+    print(f"\n{log2.INFO} Exited on {stop_d} at {stop_h}:{stop_m}:{stop_s}.{log2.RESET} ")
+    exit(f"{log2.INFO} Exported to {log2.UNDER}{name_true}.{log2.RESET} ")
+
+"""
+Points of improvement:
+- Export:
+    - Do not export empty history
+- Import:
+    - History imports full AND last two split
+"""
