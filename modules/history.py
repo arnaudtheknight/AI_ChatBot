@@ -51,21 +51,6 @@ def history_import():
         print(log2.Import_Failed)
 
 # Export this chat as JSON file:
-"""
-def history_export(history):
-    storage = f"{get_path()}/history"
-    stop = datetime.now()
-    stop_date, stop_hour, stop_min, stop_sec = stop.date(), f"{stop.hour:02d}", f"{stop.minute:02d}", f"{stop.second:02d}"
-    path = f"{storage}/hist-{stop_date}-{stop_hour}{stop_min}{stop_sec}.json"
-    try:
-        with open(path, 'a') as file:
-            dump(history, file, ensure_ascii=False, indent=2)
-        print(f"{log.CYAN}[INFO] Exited on {stop_date} at {stop_hour}:{stop_min}:{stop_sec}.{log.RESET}")
-        print(f"{log.CYAN}[INFO] Exported to {log.UNDER}{path}.{log.RESET}")
-    except Exception:
-        exit(log.Hist_Export_Fail)
-"""
-        
 def history_export(history):
     root = get_path()
     now = datetime.now()
