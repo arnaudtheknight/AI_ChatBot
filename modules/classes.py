@@ -65,7 +65,8 @@ class log(col):
 
 """
 Points of improvement:
-- finishing the damn log stack
+- finishing the damn log2 stack
+- finishing the damn migration from log to log2
 - an actually decent error handling system, where i raise my own errors
 - class for slash commands?
 """
