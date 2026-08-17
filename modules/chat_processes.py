@@ -30,8 +30,8 @@ def generate(output, out_think="", out_ans=""):
         print("Done crunching!") if not (out_think and out_ans) else None
         out_think = output.message.thinking if output.message.thinking else None
         out_ans = output.message.content
-    print('Thinking:\n========\n', out_think) if out_think else None
-    print('Response:\n========\n', out_ans)
+    print(f"{log2.NEG_BLUE}Thinking: {log2.RESET}\n{log2.BLUE}{out_think}{log2.RESET}") if out_think else None
+    print(f"{log2.NEG_GREEN}Response: {log2.RESET}\n{out_ans}")
     return out_think, out_ans
 
 def generate_stream(output, out_think="", out_ans=""):
