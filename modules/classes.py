@@ -44,8 +44,8 @@ class log2(tag):
     Config_Prompt_Fail = f"{tag.WARNING} Incorrect input.{tag.RESET} {tag.UNDER}Try again.{tag.RESET} "
     Config_Model_Show = f"\n{tag.UNDER}The following models can be used for this chat:{tag.RESET} "
     Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
-    Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
-    Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
+    Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
+    Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
     
 class log(col):
     Config_Incorrect= f"{col.YELLOW}Incorrect input. Try again: {col.RESET}"

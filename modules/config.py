@@ -20,8 +20,8 @@ def configuration(valid, valid_edited):
     name = str(input(log2.Config_Model_Prompt))
     while name.lower() not in (valid_edited or valid):
         name = str(input(log2.Config_Prompt_Fail))
-    stream = yesno(log2.Config_Mode_Stream, default_yes=True)
-    think = yesno(log2.Config_Mode_Think, default_yes=False)
+    stream = yesno(log2.Config_Mode_Stream, default_yes=False)
+    think = yesno(log2.Config_Mode_Think, default_yes=True)
     return name, think, stream
 
 # Name/Main doesn't work, because the absolute imports above raise errors for this file
