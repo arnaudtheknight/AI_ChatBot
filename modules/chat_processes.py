@@ -1,6 +1,6 @@
 from ollama import chat
-from ollama import RequestError, ResponseError
-from modules.classes import log, log2
+# from ollama import RequestError, ResponseError
+from modules.classes import log2
 
 def interact(name, history=[], mode_think=False):
     output = chat(
