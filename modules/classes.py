@@ -67,6 +67,7 @@ class log(col):
 Points of improvement:
 - finishing the damn log stack
 - an actually decent error handling system, where i raise my own errors
+- class for slash commands?
 """
 
 """ RETIRED:
