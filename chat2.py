@@ -36,7 +36,7 @@ def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
             print("Keyboard Interrupt ~DURING CHAT~ here!")
             if output_thinking:
                 history += [{'role': 'assistant', 'thinking':output_thinking,'content':output_answer}]
-            else:
+            elif output_answer:
                 history += [{'role': 'assistant','content':output_answer}]
             break
     return history
