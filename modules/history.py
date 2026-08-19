@@ -7,24 +7,6 @@ from datetime import datetime
 from modules.classes import log, log2
 
 # Import previous chat history from JSON file:
-"""
-def history_import():
-    root = get_path()
-    path = input(f"\nInput path to history file here: \n{root}/")
-    if path.lower() not in ('', 'n'):
-        path = f"{root}/{path}"
-        try:
-            with open(path, 'r') as file:
-                content = load(file)
-            print(log.Hist_Import_Success)
-            return content
-        except FileNotFoundError:
-            exit(log.Hist_Import_Missing)
-    else:
-        print(log.Hist_Import_Empty)
-        return []
-"""
-        
 def history_import():
     root = get_path()
     while True:
