@@ -1,5 +1,3 @@
-from ast import Index
-
 from classes import log2
 
 def prompt_loop():
