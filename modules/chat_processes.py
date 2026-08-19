@@ -35,13 +35,16 @@ def generate(output, out_think="", out_ans=""):
     return out_think, out_ans
 
 def generate_stream(output, out_think="", out_ans=""):
-    for chunk in output:
-        print(f"{log2.NEG_BLUE}Done crunching!{log2.RESET}") if (not out_think and not out_ans) else None
-        if chunk.message.thinking:
-            print(f"{log2.BLUE}{chunk.message.thinking}{log2.RESET}", end='', flush=True)
-            out_think += chunk.message.thinking
-        elif chunk.message.content:
-            print(f"{log2.NEG_GREEN}Thinking complete!{log2.RESET}") if (out_think and not out_ans) else None
-            print(chunk.message.content, end='', flush=True)
-            out_ans += chunk.message.content
-    return out_think, out_ans
+    try:
+        for chunk in output:
+            print(f"{log2.NEG_BLUE}Done crunching!{log2.RESET}") if (not out_think and not out_ans) else None
+            if chunk.message.thinking:
+                print(f"{log2.BLUE}{chunk.message.thinking}{log2.RESET}", end='', flush=True)
+                out_think += chunk.message.thinking
+            elif chunk.message.content:
+                print(f"{log2.NEG_GREEN}Thinking complete!{log2.RESET}") if (out_think and not out_ans) else None
+                print(chunk.message.content, end='', flush=True)
+                out_ans += chunk.message.content
+        return out_think, out_ans
+    except KeyboardInterrupt:
+        return out_think, out_ans
