@@ -1,4 +1,4 @@
-from classes import log2
+from modules.classes import log2
 
 def prompt_loop():
     inputs = []
@@ -8,7 +8,7 @@ def prompt_loop():
             line = str(input())
             inputs.append(line)
         except EOFError:
-            print(f"{log2.RESET}{log2.PURPLE}END OF LINE.{log2.RESET}")
+            print(f"{log2.RESET}\n{log2.PURPLE}END OF LINE.{log2.RESET}")
             break
     prompt = ' \n'.join(inputs)
     return prompt
@@ -68,9 +68,11 @@ def prompting(previous="", history=[]):
         return prompt_sourced
     return prompt_loop()
 
+"""
 if __name__ == "__main__":
     testing = [{'role':'user', 'prompt':"history 1 prompt"}, {'role':'assistant', 'content':""}]
     print(prompting(history=testing))
+"""
 
 """
 Points of improvement:
