@@ -3,7 +3,7 @@ from .classes import log, log2
 from .config import configuration
 from .history import history_export, history_import
 from .model_list import model_lister
-from .prompting import prompting
+from .prompts import prompting
 
 __all__ = [
     "interact",
