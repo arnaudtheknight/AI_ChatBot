@@ -35,25 +35,34 @@ class tag(col):
     EXIT = f"{col.NEG_GREEN}[EXIT]{col.RESET}{col.GREEN}"
 
 class log2(tag):
-    Import_Prompt = f"\n{tag.ORDER}Provide path to history file:{tag.RESET} "
-    Import_Failed = f"{tag.ERROR} Error retrieving provided history file. Try again.{tag.RESET} "
-    Import_Skipped = f"{tag.WARNING} History file not provided. Continuing regardless...{tag.RESET} "
-    Import_Success = f"{tag.INFO} History imported successfully.{tag.RESET} "
-    Export_Failure = f"{tag.ERROR} Unable to export message history to the appropriate JSON file.{tag.RESET} "
-    Export_Alternative = f"{tag.WARNING} Saving to alternative history export location...{tag.RESET} "
-    Config_Prompt_Fail = f"{tag.WARNING} Incorrect input.{tag.RESET} {tag.UNDER}Try again.{tag.RESET} "
-    Config_Model_Show = f"\n{tag.UNDER}The following models can be used for this chat:{tag.RESET} "
-    Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
-    Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
-    Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
+    class Importing(tag):
+        Import_Prompt = f"\n{tag.ORDER}Provide path to history file:{tag.RESET} "
+        Import_Filetype = f"Error parsing file. {tag.PURPLE}(Is the .json file formatted correctly?){tag.RESET}"
+        Import_Error_404 = lambda err: f"{log2.WARNING} Failed to open '{log2.UNDER}{err.filename}{log2.RESET}': {err.strerror}."
+        Import_Failure = f"{tag.ERROR} Error retrieving history using provided filename. Please try again.{tag.RESET} "
+        Import_Skipped = f"{tag.WARNING} History file not provided. Continuing regardless...{tag.RESET} "
+        Import_Success = f"{tag.INFO} History imported successfully.{tag.RESET} "
+
+    class Exporting(tag):
+        Export_Failure = f"{tag.ERROR} Unable to export message history to the appropriate JSON file.{tag.RESET} "
+        Export_Empty = f"{tag.WARNING} Conversation history is empty. Program will NOT export messages.{tag.RESET} "
+        Export_Alternative = f"{tag.WARNING} Saving to alternative history export location...{tag.RESET} "
+
+    class Config(tag):
+        Config_Prompt_Fail = f"{tag.WARNING} Incorrect input.{tag.RESET} {tag.UNDER}Try again.{tag.RESET} "
+        Config_Model_Show = f"\n{tag.UNDER}The following models can be used for this chat:{tag.RESET} "
+        Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
+        Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
+        Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
 
 class slash():
+    History_Skip = {'', "/no", "/skip"}
     Chat_END = {"/end", "/eof"}
     Chat_STOP = {"/bye", "/close", "/stop"}
     Chat_Mistake = {"/del-prev", "/oops"}
     Chat_Wipe = {"/del-all", "/wipe"}
     Config = {"/conf","/config"}
-    Raise_ResponseError = {"/response", "uuddlrlrab"}
+    Raise_ResponseError = {"/err-response", "uuddlrlrab"}
 
     
 class log(col):
