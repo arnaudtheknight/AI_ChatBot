@@ -46,6 +46,15 @@ class log2(tag):
     Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
     Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
     Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
+
+class slash():
+    Chat_END = {"/end", "/eof"}
+    Chat_STOP = {"/bye", "/close", "/stop"}
+    Chat_Mistake = {"/del-prev", "/oops"}
+    Chat_Wipe = {"/del-all", "/wipe"}
+    Config = {"/conf","/config"}
+    Raise_ResponseError = {"/response", "uuddlrlrab"}
+
     
 class log(col):
     Config_Incorrect= f"{col.YELLOW}Incorrect input. Try again: {col.RESET}"

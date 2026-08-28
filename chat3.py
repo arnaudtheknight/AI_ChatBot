@@ -5,6 +5,14 @@ from ollama import ResponseError
 from modules import *
 
 # Chatbot logic:
+def chatbot_new(previous="", mode_think=False, mode_stream=True):
+    while True:
+        output_thinking, output_answer = "", ""
+        if previous:
+            prompt = previous
+            print("Trying again with previous prompt...")
+        elif prompt in
+
 def chatbot(name, history, mode_think=False, mode_stream=True, previous=""):
     while True:
         output_thinking, output_answer = "", ""
