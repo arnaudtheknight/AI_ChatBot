@@ -1,8 +1,8 @@
 from .chat_processes import interact, interact_stream, generate, generate_stream
 from .classes import log, log2, slash
-from .config import configuration
+from .config import model_config
 from .history import history_export, history_import
-from .model_list import model_lister
+from .model_list import list_models
 from .prompts import prompting
 
 __all__ = [
@@ -13,9 +13,9 @@ __all__ = [
     "log",
     "log2",
     "slash",
-    "configuration",
+    "model_config",
     "history_import",
     "history_export",
-    "model_lister",
+    "list_models",
     "prompting"
 ]
