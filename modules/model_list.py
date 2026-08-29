@@ -10,6 +10,7 @@ def list_models():
         if "hf.co/" not in name:
             list_official += [name] # ModelName:version
             name_split = name.split(':', 1)[0]
+            list_edited += [name.lower()]
             list_edited += [name_split.lower()] # modelname
     return sorted(list_official), sorted(list_edited)
 
