@@ -86,3 +86,11 @@ def history_export(history):
     else:
         print(log2.Exporting.Export_Empty)
     exit(message)
+
+# Points of improvement:
+"""
+- Export:
+    - Do not export empty history
+- Import:
+    - History imports full AND last two split
+"""
