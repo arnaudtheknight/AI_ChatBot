@@ -70,8 +70,8 @@ if __name__ == '__main__':
                 history.pop()
         while True:
             try:
-                valid_names, valid_choices = model_lister()
-                name, think, stream = configuration(valid_names, valid_choices)
+                valid_names, valid_choices = list_models()
+                name, think, stream = model_config(valid_names, valid_choices)
                 if prompt_last:
                     history = chatbot(name, history, think, stream, prompt_last)
                 else:
