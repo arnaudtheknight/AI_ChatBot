@@ -60,11 +60,13 @@ def folder_check(term, root=get_path()):
         makedirs(path)
     return path
 
+# History file creation:
 def history_dump(content, path):
     with open(path, 'x') as file:
         dump(content, file, ensure_ascii=False, indent=2)
     print(log2.Exporting.Export_Success(path))
 
+# History export logic:
 def history_export(history):
     filename, message = quit_handling()
     if history:
