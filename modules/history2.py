@@ -5,10 +5,11 @@ from datetime import datetime
 from os.path import isdir
 from os import makedirs
 # Self-written modules:
-from classes import log2, slash
+from modules.classes import log2, slash
 # Global:
 from os import getcwd as get_path
 from json import JSONDecodeError, load, dump
+from sys import exit
 
 # Obtain file contents:
 def get_contents(path):
@@ -31,18 +32,16 @@ def history_import(root=get_path()):
         candidates = [
             f"{root}/{path}", # input: history/blah.json
             f"{root}/history/{path}", # input: blah.json
-            path # input: /.../history/blah.json
+            f"/{path}" # input: /.../history/blah.json
         ]
 
         for spot in candidates:
             try:
                 return get_contents(spot)
             except FileNotFoundError as err:
-                print(log2.Importing.Import_Error_404(err))
-                # print(f"{log2.WARNING} Failed to open '{log2.UNDER}{err.filename}{log2.RESET}': {err.strerror}.")
-                # print(f"Tried opening '{log2.UNDER}{spot}{log2.RESET}' and failed.")
+                print(f"{log2.Importing.Import_Error(spot)} {err.strerror}. ")
             except JSONDecodeError as err:
-                print(f"{log2.WARNING} Failed to open '{log2.UNDER}{spot}{log2.RESET}': {log2.Importing.Import_Filetype}")
+                print(log2.Importing.Import_Error(spot), log2.Importing.Import_Error_JSON)
         print(log2.Importing.Import_Failure)
 
 # Get exit time:
@@ -50,30 +49,38 @@ def quit_handling():
     now = datetime.now()
     stop_d, stop_h, stop_m, stop_s = now.date(), f"{now.hour:02d}", f"{now.minute:02d}", f"{now.second:02d}"
     name = f"{stop_d}-{stop_h}{stop_m}{stop_s}"
-    message = f"\n{log2.INFO} Exited on {stop_d} at {stop_h}:{stop_m}:{stop_s}.{log2.RESET} "
+    message = f"{log2.INFO} Exited on {stop_d} at {stop_h}:{stop_m}:{stop_s}.{log2.RESET} "
     return name, message
 
 # Verify folder existence:
 def folder_check(term, root=get_path()):
-    folder = f"{root}/{term}"
-    if not isdir(folder):
-        print(f"{log2.WARNING}'{term}' folder not found. Creating one now.{log2.RESET} ")
-        makedirs(folder)
-    return folder
+    path = f"{root}/{term}"
+    if not isdir(path):
+        print(log2.Exporting.Export_FolderMissing(term))
+        makedirs(path)
+    return path
+
+def history_dump(content, path):
+    with open(path, 'x') as file:
+        dump(content, file, ensure_ascii=False, indent=2)
+    print(log2.Exporting.Export_Success(path))
 
 def history_export(history):
     filename, message = quit_handling()
     if history:
         path = folder_check(term="history")
-        location = f"{path}/hist-{filename}.json"
-        try:
-            with open(location, 'a') as file:
-                dump(history, file, ensure_ascii=False, indent=2)
-                print(f"{log2.INFO} Successfully exported history to '{log2.UNDER}{location}{log2.RESET}'. ")
-        except Exception as err:
-            print(log2.Exporting.Export_Failure)
-            print("An exception occured:", err)
-        
-
-if __name__ == '__main__':
-    history_import()
+        location1, location2 = f"{path}/hist-{filename}.json", f"{path}/hist-{filename}_02.json"
+        for location in {location1, location2}:
+            try:
+                history_dump(history, f"{path}/hist-2026-08-29-001820.json")
+                return exit(message)
+            except FileExistsError as err:
+                print(log2.Exporting.Export_Error(err.filename))
+            except Exception as err:
+                print(log2.Exporting.Export_Error(location))
+                print("An exception occured:", err)
+            print(log2.Exporting.Export_Alternative)
+        print(log2.Exporting.Export_Failure)
+    else:
+        print(log2.Exporting.Export_Empty)
+    exit(message)
