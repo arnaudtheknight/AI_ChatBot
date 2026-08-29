@@ -1,12 +1,27 @@
 class col:
     RESET = '\033[0m' # all attributes off
+
     BOLD = '\033[1m'
+    # DIM = '\033[2m'
     ITALIC = '\033[3m'
     UNDER = '\033[4m' # Underline
     BLINK = '\033[5m' # (Slow) blink
+    # BLINK_FAST = '\033[6m # (Fast) blink
     NEG_WHITE = '\033[7m' # swap fg and bg colours
     HIDE = '\033[8m' # Conceal
     # STRIKE = '\033[9m' # Strikethrough
+
+    STOP_BOLD = '\033[21m'
+    # STOP_DIM = '\033[22m'
+    STOP_ITALIC = '\033[23m'
+    STOP_UNDER = '\033[24m'
+    STOP_BLINK = '\033[25m'
+    # STOP_BLINK_FAST = '\033[26m'
+    STOP_NEG_WHITE = '\033[27m'
+    STOP_HIDE = '\033[28m'
+    # STOP_STRIKE = '\033[29m'
+    STOP_NEG = '\033[49m'
+
     # GREY_L = '\033[37m' # Light grey
     GREY = '\033[90m' # Dark grey
     RED = '\033[91m' # Red+
@@ -37,16 +52,22 @@ class tag(col):
 class log2(tag):
     class Importing(tag):
         Import_Prompt = f"\n{tag.ORDER}Provide path to history file:{tag.RESET} "
-        Import_Filetype = f"Error parsing file. {tag.PURPLE}(Is the .json file formatted correctly?){tag.RESET}"
-        Import_Error_404 = lambda err: f"{log2.WARNING} Failed to open '{log2.UNDER}{err.filename}{log2.RESET}': {err.strerror}."
+        Import_Error = lambda location: f"{tag.WARNING} Failed to open '{tag.UNDER}{location}{tag.STOP_UNDER}:"
+        # Import_Error_404 = lambda location: f"{log2.WARNING} Failed to open '{log2.UNDER}{location}{log2.RESET}': {err.strerror}."
+        # Import_Error_Filetype = lambda location: f"{log2.WARNING} Failed to open '{log2.UNDER}{location}{log2.RESET}':"
+        Import_Error_JSON = f"Error parsing file. {tag.PURPLE}(Is the .json file formatted correctly?){tag.RESET}"
         Import_Failure = f"{tag.ERROR} Error retrieving history using provided filename. Please try again.{tag.RESET} "
         Import_Skipped = f"{tag.WARNING} History file not provided. Continuing regardless...{tag.RESET} "
         Import_Success = f"{tag.INFO} History imported successfully.{tag.RESET} "
 
     class Exporting(tag):
-        Export_Failure = f"{tag.ERROR} Unable to export message history to the appropriate JSON file.{tag.RESET} "
+        Export_FileExists = "The file already exists. (Somehow.)"
+        Export_FolderMissing = lambda name: f"{tag.WARNING} Folder with name '{name}' not found. Creating one now.{tag.RESET} "
+        Export_Error = lambda location: f"{tag.WARNING} Unable to export to '{tag.UNDER}{location}{tag.STOP_UNDER}'.{tag.RESET} "
+        Export_Failure = f"{tag.FATAL} Failed to export message history to a .json file. sorry ):{tag.RESET} "
         Export_Empty = f"{tag.WARNING} Conversation history is empty. Program will NOT export messages.{tag.RESET} "
         Export_Alternative = f"{tag.WARNING} Saving to alternative history export location...{tag.RESET} "
+        Export_Success = lambda location: f"{tag.INFO} Successfully exported history to '{tag.UNDER}{location}{tag.STOP_UNDER}'.{tag.RESET} "
 
     class Config(tag):
         Config_Prompt_Fail = f"{tag.WARNING} Incorrect input.{tag.RESET} {tag.UNDER}Try again.{tag.RESET} "
