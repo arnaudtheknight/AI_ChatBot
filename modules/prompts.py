@@ -1,16 +1,20 @@
-from modules.classes import log2
+from modules.classes import log2, slash
 
 def prompt_loop():
     inputs = []
-    print(f"Enter your prompt here, or press Ctrl-D to finish: {log2.NEG_GREY}")
+    print(f"Enter your prompt here, or press Ctrl-D to finish: ")
     while True:
-        line = str(input())
-        if line.lower() in {"/eof", "/end"}:
-            print(f"{log2.RESET}\n{log2.PURPLE}END OF LINE.{log2.RESET}")
+        line = str(input(log2.NEG_GREY))
+        if line.lower() in slash.Chat_STOP:
+            print(log2.RESET)
+            raise KeyboardInterrupt
+        elif line.lower() in slash.Chat_NEXT:
+            print(log2.RESET)
+            print(f"{log2.PURPLE}END OF LINE.{log2.RESET} ")
             break
-        elif line.lower() in {"/del-prev", "/oops"}:
+        elif line.lower() in slash.Chat_Mistake:
             del inputs[-1]
-        elif line.lower() in {"/del-all", "/wipe"}:
+        elif line.lower() in slash.Chat_Wipe:
             inputs = []
         else:
             inputs.append(line)
