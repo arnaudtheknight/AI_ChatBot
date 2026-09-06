@@ -57,12 +57,17 @@ def generate(output, out_think="", out_ans=""):
     #     # console.print(f"{log2.BLUE}{Markdown(out_think)}{log2.RESET}")
     # print(f"{log2.NEG_GREEN}Response: {log2.RESET}")
     # console.print(Markdown(out_ans))
+
+    # if out_think:
+    #     print(f"{log2.NEG_PURPLE}THINKING: {log2.STOP_NEG}")
+    #     print(log2.NEG_BLUE)
+    #     console.print(Markdown(math_esc(out_think)))
+    #     print(log2.RESET)
+
     if out_think:
-        print(f"{log2.NEG_BLUE}THINKING: {log2.RESET}")
-        print(log2.BLUE)
-        console.print(Markdown(math_esc(out_think)))
-        print(log2.RESET)
-    print(f"{log2.GREEN}RESPONSE: {log2.RESET}")
+        print(f"{log2.NEG_PURPLE}THINKING: {log2.STOP_NEG}")
+        print(f"{log2.BLUE}{out_think}{log2.RESET}")
+    print(f"{log2.NEG_PURPLE}RESPONSE: {log2.STOP_NEG}")
     console.print(Markdown(math_esc(out_ans)))
     
     return out_think, out_ans
