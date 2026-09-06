@@ -51,39 +51,50 @@ class tag(col):
 
 class log2(tag):
     class Importing(tag):
-        Import_Prompt = f"\n{tag.ORDER}Provide path to history file:{tag.RESET} "
-        Import_Error = lambda location: f"{tag.WARNING} Failed to open '{tag.UNDER}{location}{tag.STOP_UNDER}:"
+        Prompt = f"\n{tag.ORDER}Provide path to history file:{tag.RESET} "
+        Error = lambda location: f"{tag.WARNING} Failed to open '{tag.UNDER}{location}{tag.STOP_UNDER}:"
         # Import_Error_404 = lambda location: f"{log2.WARNING} Failed to open '{log2.UNDER}{location}{log2.RESET}': {err.strerror}."
         # Import_Error_Filetype = lambda location: f"{log2.WARNING} Failed to open '{log2.UNDER}{location}{log2.RESET}':"
-        Import_Error_JSON = f"Error parsing file. {tag.PURPLE}(Is the .json file formatted correctly?){tag.RESET}"
-        Import_Failure = f"{tag.ERROR} Error retrieving history using provided filename. Please try again.{tag.RESET} "
-        Import_Skipped = f"{tag.WARNING} History file not provided. Continuing regardless...{tag.RESET} "
-        Import_Success = f"{tag.INFO} History imported successfully.{tag.RESET} "
+        Error_JSON = f"Error parsing file. {tag.PURPLE}(Is the .json file formatted correctly?){tag.RESET}"
+        Failure = f"{tag.ERROR} Error retrieving history using provided filename. Please try again.{tag.RESET} "
+        Skipped = f"{tag.WARNING} History file not provided. Continuing regardless...{tag.RESET} "
+        Success = f"{tag.INFO} History imported successfully.{tag.RESET} "
 
     class Exporting(tag):
-        Export_FileExists = "The file already exists. (Somehow.)"
-        Export_FolderMissing = lambda name: f"{tag.WARNING} Folder with name '{name}' not found. Creating one now.{tag.RESET} "
-        Export_Error = lambda location: f"{tag.WARNING} Unable to export to '{tag.UNDER}{location}{tag.STOP_UNDER}'.{tag.RESET} "
-        Export_Failure = f"{tag.FATAL} Failed to export message history to a .json file. sorry ):{tag.RESET} "
-        Export_Empty = f"{tag.WARNING} Conversation history is empty. Program will NOT export messages.{tag.RESET} "
-        Export_Alternative = f"{tag.WARNING} Saving to alternative history export location...{tag.RESET} "
-        Export_Success = lambda location: f"{tag.INFO} Successfully exported history to '{tag.UNDER}{location}{tag.STOP_UNDER}'.{tag.RESET} "
+        FileExists = "The file already exists. (Somehow.)"
+        FolderMissing = lambda name: f"{tag.WARNING} Folder with name '{name}' not found. Creating one now.{tag.RESET} "
+        Error = lambda location: f"{tag.WARNING} Unable to export to '{tag.UNDER}{location}{tag.STOP_UNDER}'.{tag.RESET} "
+        Failure = f"{tag.FATAL} Failed to export message history to a .json file. sorry ):{tag.RESET} "
+        Empty = f"{tag.WARNING} Conversation history is empty. Program will NOT export messages.{tag.RESET} "
+        Alternative = f"{tag.WARNING} Saving to alternative history export location...{tag.RESET} "
+        Success = lambda location: f"{tag.INFO} Successfully exported history to '{tag.UNDER}{location}{tag.STOP_UNDER}'.{tag.RESET} "
 
     class Config(tag):
-        Config_Prompt_Fail = f"{tag.WARNING} Incorrect input.{tag.RESET} {tag.UNDER}Try again.{tag.RESET} "
-        Config_Model_Show = f"\n{tag.UNDER}The following models can be used for this chat:{tag.RESET} "
-        Config_Model_Prompt = f"{tag.ORDER}Provide the name of the model you would like to use:{tag.RESET} "
-        Config_Mode_Stream = f"{tag.UNDER}Would you like the output streamed to the terminal?{tag.RESET} {tag.ORDER}[y/N]{tag.RESET} "
-        Config_Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.RESET} {tag.ORDER}[Y/n]{tag.RESET} "
+        Default_Yes = f"{tag.ORDER}[Y/n]{tag.RESET} "
+        Default_No = f"{tag.ORDER}[y/N]{tag.RESET} "
+        Model_List = f"\n{tag.UNDER}The following models can be used for this chat:{tag.RESET} "
+        Model_Prompt = f"{tag.ORDER}Name the model you would like to use:{tag.RESET} "
+        Model_Fail = f"{tag.WARNING} Input does not match a model name.{tag.STOP_NEG} {tag.UNDER}Try again.{tag.RESET} "
+        Mode_Stream = f"{tag.UNDER}Would you like to stream the output to the terminal?{tag.STOP_UNDER}"
+        Mode_Think = f"{tag.UNDER}Would you like to enable thinking mode?{tag.STOP_UNDER}"
+
+    class Chat(tag):
+        EndOfLine = f"{tag.PURPLE}END OF LINE.{tag.RESET} "
+        Keyboard_Interrupt = "\nKeyboard Interrupt ~DURING CHAT~ here!"
+        # Wipe = 
+        # Oops = 
 
 class slash():
     History_Skip = {'', "/no", "/skip"}
-    Chat_END = {"/end", "/eof"}
-    Chat_STOP = {"/bye", "/close", "/stop"}
+    Chat_NEXT = {"/done", "/end", "/eof"}
+    Chat_STOP = {"/bye", "/close", "/stop", "/leave"}
     Chat_Mistake = {"/del-prev", "/oops"}
     Chat_Wipe = {"/del-all", "/wipe"}
     Config = {"/conf","/config"}
-    Raise_ResponseError = {"/err-response", "uuddlrlrab"}
+
+    class Raise:
+        Response_Error = {"/err-response"}
+        Keyboard_Interrupt = {"/keyint"}
 
     
 class log(col):
