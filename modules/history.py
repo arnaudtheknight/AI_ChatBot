@@ -15,18 +15,18 @@ from sys import exit
 def get_contents(path):
     with open(path, 'r') as file:
         content = load(file)
-        print(log2.Importing.Import_Success)
+        print(log2.Importing.Success)
         return content
 
 # History import logic:
 def history_import(root=get_path()):
     while True:
-        print(log2.Importing.Import_Prompt)
+        print(log2.Importing.Prompt)
         path = input(f"{log2.UNDER}{root}/{log2.RESET}") # [/.../]history/blah.json
 
         # Skip import:
         if path.lower() in slash.History_Skip:
-            print(log2.Importing.Import_Skipped)
+            print(log2.Importing.Skipped)
             return []
 
         candidates = [
@@ -39,10 +39,10 @@ def history_import(root=get_path()):
             try:
                 return get_contents(spot)
             except FileNotFoundError as err:
-                print(f"{log2.Importing.Import_Error(spot)} {err.strerror}. ")
+                print(f"{log2.Importing.Error(spot)} {err.strerror}. ")
             except JSONDecodeError as err:
-                print(log2.Importing.Import_Error(spot), log2.Importing.Import_Error_JSON)
-        print(log2.Importing.Import_Failure)
+                print(log2.Importing.Error(spot), log2.Importing.Error_JSON)
+        print(log2.Importing.Failure)
 
 # Get exit time:
 def quit_handling():
@@ -56,36 +56,58 @@ def quit_handling():
 def folder_check(term, root=get_path()):
     path = f"{root}/{term}"
     if not isdir(path):
-        print(log2.Exporting.Export_FolderMissing(term))
+        print(log2.Exporting.FolderMissing(term))
         makedirs(path)
     return path
 
 # History file creation:
-def history_dump(content, path):
-    with open(path, 'x') as file:
+def history_dump(content, path, overwrite=False):
+    operation = 'w' if overwrite else 'x'
+    with open(path, operation) as file:
         dump(content, file, ensure_ascii=False, indent=2)
-    print(log2.Exporting.Export_Success(path))
+    print(log2.Exporting.Success(path))
 
 # History export logic:
 def history_export(history):
     filename, message = quit_handling()
     if history:
         path = folder_check(term="history")
+        file = f"{path}/{filename}.json"
+        try:
+            history_dump(history, file)
+            return exit(message)
+        except FileExistsError as err:
+            print(log2.Exporting.Error(err.filename))
+            print(log2.Exporting.Alternative)
+            history_dump(history, f"{path}/dump.json", overwrite=True)
+        except Exception as err:
+            print(log2.Exporting.Error(file))
+            print("An exception occured:", err) 
+    else: 
+        print(log2.Exporting.Empty)
+    exit(message)
+
+"""
+def history_export2(history):
+    filename, message = quit_handling()
+    if history:
+        path = folder_check(term="history")
         location1, location2 = f"{path}/hist-{filename}.json", f"{path}/hist-{filename}_02.json"
         for location in {location1, location2}:
             try:
-                history_dump(history, f"{path}/hist-2026-08-29-001820.json")
+                history_dump(history, location)
                 return exit(message)
             except FileExistsError as err:
-                print(log2.Exporting.Export_Error(err.filename))
+                print(log2.Exporting.Error(err.filename))
             except Exception as err:
-                print(log2.Exporting.Export_Error(location))
+                print(log2.Exporting.Error(location))
                 print("An exception occured:", err)
-            print(log2.Exporting.Export_Alternative)
-        print(log2.Exporting.Export_Failure)
+            print(log2.Exporting.Alternative)
+        print(log2.Exporting.Failure)
     else:
-        print(log2.Exporting.Export_Empty)
+        print(log2.Exporting.Empty)
     exit(message)
+"""
 
 # Points of improvement:
 """
