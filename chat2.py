@@ -62,7 +62,7 @@ def chatbot(name, history=[], mode_think=False, mode_stream=True, previous=""):
 if __name__ == '__main__':
     try:
         prompt_last = ""
-        history = history_import()
+        history = history_in()
         if history:
             previous = history[-1]
             if previous['role'] == 'user':
@@ -90,7 +90,7 @@ if __name__ == '__main__':
                 print("\nBig yikes!")
                 print("Non-trivial exit!")
             finally:
-                history_export(history)
+                history_out(history)
     except KeyboardInterrupt:
         exit("\nKeyboard Interrupt ~OUTSIDE CHAT~ here!")
 
