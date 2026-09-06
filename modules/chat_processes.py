@@ -5,7 +5,7 @@ from rich.markdown import Markdown
 # from ollama import RequestError, ResponseError
 from modules.classes import log2
 
-def interact(name, history=[], mode_think=False):
+def interact(name, history, mode_think=False):
     output = chat(
         model = name,
         messages = history,
@@ -14,7 +14,7 @@ def interact(name, history=[], mode_think=False):
     )
     return output
 
-def interact_stream(name, history=[], mode_think=False):
+def interact_stream(name, history, mode_think=False):
     output = chat(
         model = name,
         messages = history,
@@ -51,19 +51,6 @@ def generate(output, out_think="", out_ans=""):
         print("Done crunching!") if not (out_think and out_ans) else None
         out_think = output.message.thinking if output.message.thinking else None
         out_ans = output.message.content
-    # if out_think:
-    #     print(f"{log2.NEG_BLUE}Thinking: {log2.RESET}")
-    #     console.print(Markdown(f"{log2.BLUE}{out_think}{log2.RESET}"))
-    #     # console.print(f"{log2.BLUE}{Markdown(out_think)}{log2.RESET}")
-    # print(f"{log2.NEG_GREEN}Response: {log2.RESET}")
-    # console.print(Markdown(out_ans))
-
-    # if out_think:
-    #     print(f"{log2.NEG_PURPLE}THINKING: {log2.STOP_NEG}")
-    #     print(log2.NEG_BLUE)
-    #     console.print(Markdown(math_esc(out_think)))
-    #     print(log2.RESET)
-
     if out_think:
         print(f"{log2.NEG_PURPLE}THINKING: {log2.STOP_NEG}")
         print(f"{log2.BLUE}{out_think}{log2.RESET}")
@@ -89,5 +76,8 @@ def generate_stream(output, out_think="", out_ans=""):
 
 # Points of Improvement:
 """
-- from rich.live import Live ; with Live(console=console, refresh_per_second=5) as live: ... live.update(Markdown(out))
-"""
+- Implement Markdown for *streamed* output using: """
+# from rich.live import Live
+# with Live(console=Console, refresh_per_second=5) as live: 
+#     ... 
+#     live.update(Markdown(output))
