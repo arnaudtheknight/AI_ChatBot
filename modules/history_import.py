@@ -23,9 +23,9 @@ def history_in(root=get_path()):
             return []
 
         candidates = [
-            f"{root}/{path}", # input: history/blah.json
-            f"{root}/history/{path}", # input: blah.json
-            f"/{path}" # input: /.../history/blah.json
+            f"{root}/{path}", # INPUT: history/blah.json
+            f"{root}/history/{path}", # INPUT: blah.json
+            f"/{path}" # INPUT: /.../history/blah.json
         ]
 
         for spot in candidates:
