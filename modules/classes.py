@@ -87,7 +87,7 @@ class log2(tag):
 class slash():
     History_Skip = {'', "/no", "/skip"}
     Chat_NEXT = {"/done", "/end", "/eof"}
-    Chat_STOP = {"/bye", "/close", "/stop", "/leave"}
+    Chat_STOP = {"/bye", "/close", "/exit", "/leave", "/quit", "/stop"}
     Chat_Mistake = {"/del-prev", "/oops"}
     Chat_Wipe = {"/del-all", "/wipe"}
     Config = {"/conf","/config"}

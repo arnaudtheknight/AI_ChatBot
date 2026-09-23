@@ -67,12 +67,12 @@ def generate_stream(output, out_think="", out_ans=""):
                 print(f"{log2.BLUE}{chunk.message.thinking}{log2.RESET}", end='', flush=True)
                 out_think += chunk.message.thinking
             elif chunk.message.content:
-                print(f"{log2.NEG_GREEN}Thinking complete!{log2.RESET}") if (out_think and not out_ans) else None
+                print(f"\n{log2.NEG_GREEN}Thinking complete!{log2.RESET}") if (out_think and not out_ans) else None
                 print(chunk.message.content, end='', flush=True)
                 out_ans += chunk.message.content
         return out_think, out_ans
     except KeyboardInterrupt as err:
-        print(f"{log2.RESET}Keyboard Interrupt ~here~!")
+        print("\nKeyboard Interrupt ~here~!")
         print("This is in the actual output generation; so 3 layers deep?")
         print("\nStopped generating. To exit, use ctrl-D or \"/bye\" to exit.")
         return out_think, out_ans

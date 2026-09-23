@@ -4,12 +4,12 @@ from modules.classes import log2, slash
 
 def prompt_loop():
     inputs = []
-    print(f"\nStart typing, or enter \"/done\" to finish: ")
+    print(f"\n{log2.NEG_GREY}Start typing, or enter \"/done\" to finish: {log2.RESET}")
     while True:
-        line = str(input(f"{log2. NEG_GREY}>>> "))
+        line = str(input(">>> "))
         if line.lower() in slash.Chat_STOP:
             print(log2.RESET)
-            raise KeyboardInterrupt
+            raise EOFError
         elif line.lower() in slash.Chat_NEXT:
             print(log2.RESET)
             print(f"{log2.PURPLE}END OF LINE.{log2.RESET} ")
