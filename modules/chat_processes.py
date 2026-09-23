@@ -71,7 +71,10 @@ def generate_stream(output, out_think="", out_ans=""):
                 print(chunk.message.content, end='', flush=True)
                 out_ans += chunk.message.content
         return out_think, out_ans
-    except KeyboardInterrupt:
+    except KeyboardInterrupt as err:
+        print(f"{log2.RESET}Keyboard Interrupt ~here~!")
+        print("This is in the actual output generation; so 3 layers deep?")
+        print("\nStopped generating. To exit, use ctrl-D or \"/bye\" to exit.")
         return out_think, out_ans
 
 # Points of Improvement:

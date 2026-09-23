@@ -25,9 +25,10 @@ def chatbot(name, history=[], mode_think=False, mode_stream=True):
             else:
                 history += [{'role': 'assistant', 'content': output_answer}]
 
-        except KeyboardInterrupt as err:
-            print("Keyboard Interrupt ~here~!")
+        except EOFError as err:
+            print("\nHard EOF Interrupt ~here~!")
             print("This is in chatbot(), so during chat, so 2 layers deep?")
+            break
 
     return history
 
@@ -38,12 +39,11 @@ if __name__ == '__main__':
             valid_names, valid_choices = list_models()
             name, think, stream = model_config(valid_names, valid_choices)
             history = chatbot(name, history, think, stream)
-            break
         except KeyboardInterrupt as err:
-            print("Keyboard Interrupt ~here~!")
+            print("\nKeyboard Interrupt ~here~!")
             print("This is in name/main, so outside chatbot, so 1 layer deep?")
         except ResponseError as err:
-            print("Response Error here!", err)
+            print("\nResponse Error here!", err)
             print("A model was somehow not appropriately provided, even though you passed config.") 
             print("Let's try this again, shall we?")
             if history and history[-1]['role'] == 'user':
