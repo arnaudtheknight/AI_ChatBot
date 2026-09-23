@@ -4,9 +4,9 @@ from modules.classes import log2, slash
 
 def prompt_loop():
     inputs = []
-    print(f"Start typing, or enter \"/done\" to finish: ")
+    print(f"\nStart typing, or enter \"/done\" to finish: ")
     while True:
-        line = str(input(log2. NEG_GREY))
+        line = str(input(f"{log2. NEG_GREY}>>> "))
         if line.lower() in slash.Chat_STOP:
             print(log2.RESET)
             raise KeyboardInterrupt
